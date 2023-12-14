@@ -1,12 +1,12 @@
+import { useAuthContext } from "@/components/atoms/Auth/auth.context";
 import DefaultTemplate from "@/components/templates/Default/Default";
-import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
 const LogoutPage = () => {
-  const router = useRouter();
+  const { onLogout } = useAuthContext();
   useEffect(() => {
-    router.push("/login");
-  }, [router]);
+    onLogout();
+  }, [onLogout]);
   return <DefaultTemplate title="LogoutPage" />;
 };
 

@@ -1,17 +1,19 @@
 import { useAuthContext } from "@/components/atoms/Auth/auth.context";
 import DefaultTemplate from "@/components/templates/Default/Default";
-import { FileService, FileServicePostFileProps } from "@/services/fileService";
+import {
+  UserService,
+  UserServicePostUserProps,
+  useGetOneUser,
+} from "@/services/userService";
 import {
   Box,
   Button,
   Divider,
-  FileInput,
+  Group,
   Paper,
-  PasswordInput,
   Stack,
   Text,
   TextInput,
-  Textarea,
 } from "@mantine/core";
 import { Form, Formik } from "formik";
 import { capitalize } from "lodash";
@@ -19,20 +21,20 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useQueryClient } from "react-query";
 
-const EncryptPage = () => {
+const TambahUserPage = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { setInitializing } = useAuthContext();
 
-  const handleTambahData = async (payload: FileServicePostFileProps) => {
+  const handleTambahData = async (payload: UserServicePostUserProps) => {
     try {
       setInitializing(true);
-      const response = await FileService.postFile(payload);
+      const response = await UserService.postUser(payload);
       if (response.status === 200) {
         alert("Berhasil handleTambahData!");
-        await queryClient.invalidateQueries(["useGetAllFile"]);
+        await queryClient.invalidateQueries(["useGetAllUser"]);
         setInitializing(false);
-        await router.push("/decrypt");
+        await router.push("/user");
       } else {
         alert("Gagal handleTambahData!");
         setInitializing(false);
@@ -44,15 +46,16 @@ const EncryptPage = () => {
   };
 
   return (
-    <DefaultTemplate title="EncryptPage">
+    <DefaultTemplate title="TambahUserPage">
       <Paper p={16}>
         <Text fz={20} fw={500}>
-          Form Enkripsi
+          Form Tambah User
         </Text>
         <Divider mt={2} mb={8} />
         <Formik
-          initialValues={{ file: null, password: "", description: "" }}
-          onSubmit={(values: FileServicePostFileProps) =>
+          enableReinitialize
+          initialValues={{ fullname: "", username: "" }}
+          onSubmit={(values: UserServicePostUserProps) =>
             handleTambahData(values)
           }
         >
@@ -60,27 +63,17 @@ const EncryptPage = () => {
             <Form onSubmit={handleSubmit}>
               <Stack>
                 <Stack gap={4}>
-                  <FileInput
-                    label={capitalize("file")}
+                  <TextInput
+                    label={capitalize("fullname")}
                     maw={400}
-                    onChange={(e) => setFieldValue("file", e)}
-                    value={values.file}
+                    onChange={(e) => setFieldValue("fullname", e.target.value)}
+                    value={values.fullname}
                   />
-                  <PasswordInput
-                    label={capitalize("password")}
+                  <TextInput
+                    label={capitalize("username")}
                     maw={400}
-                    onChange={(e) => setFieldValue("password", e.target.value)}
-                    value={values.password}
-                  />
-                  <Textarea
-                    label={capitalize("deskripsi")}
-                    maw={400}
-                    minRows={4}
-                    autosize
-                    onChange={(e) =>
-                      setFieldValue("description", e.target.value)
-                    }
-                    value={values.description}
+                    onChange={(e) => setFieldValue("username", e.target.value)}
+                    value={values.username}
                   />
                 </Stack>
                 <Divider />
@@ -91,7 +84,7 @@ const EncryptPage = () => {
                   variant="filled"
                   color="teal"
                 >
-                  Enkripsi File
+                  Submit
                 </Button>
               </Stack>
             </Form>
@@ -102,4 +95,4 @@ const EncryptPage = () => {
   );
 };
 
-export default EncryptPage;
+export default TambahUserPage;

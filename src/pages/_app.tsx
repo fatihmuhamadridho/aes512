@@ -8,7 +8,8 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MantineProvider, createTheme } from "@mantine/core";
-import { NavigationProgress } from "@mantine/nprogress";
+import { RouterTransition } from "@/components/atoms/RouterTransition/RouterTransition";
+import { AuthProvider } from "@/components/atoms/Auth/AuthProvider";
 
 export default function App({ Component, pageProps }: AppProps) {
   const theme = createTheme({});
@@ -31,8 +32,10 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <QueryClientProvider client={queryClient}>
         <MantineProvider theme={theme}>
-          <NavigationProgress />
-          <Component {...pageProps} />
+          <AuthProvider>
+            <RouterTransition />
+            <Component {...pageProps} />
+          </AuthProvider>
         </MantineProvider>
       </QueryClientProvider>
     </>

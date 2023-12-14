@@ -1,58 +1,37 @@
 import useQuery from "@/libs/useQuery";
-import axios from "axios";
+import { instance } from "@/libs/api/client";
 
-const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_API_URL + "/spkahp",
-  headers: {
-    Authorization: "Basic abcd",
-  },
+const apiClient = instance({
+  baseURL: process.env.NEXT_PUBLIC_BASE_API_URL + "/aes512/auth",
 });
+
+export interface AuthServiceLoginProps {
+  username: string;
+  password: string;
+}
+
+export interface AuthServiceChangePasswordProps {
+  username: string;
+  password: string;
+  new_password: string;
+}
 
 export class AuthService {
   static ApiEndpoint = {
-    auth: "/auth",
+    privilege: "/privilege",
+    login: "/login",
+    changePassword: "change-password",
   };
 
-  static getAll() {
-    return apiClient.get(this.ApiEndpoint.auth);
+  static privilege() {
+    return apiClient.get(this.ApiEndpoint.privilege);
   }
 
-  static getOne(user_id: number) {
-    if (user_id === undefined) return undefined;
-    return apiClient.get(this.ApiEndpoint.auth + `/${user_id}`);
+  static login(payload: AuthServiceLoginProps) {
+    return apiClient.post(this.ApiEndpoint.login, payload);
   }
 
-  static postMock(payload: any) {
-    return apiClient.post(this.ApiEndpoint.auth, payload);
-  }
-
-  static putMock(payload: any, user_id: number) {
-    if (user_id === undefined) return undefined;
-    return apiClient.put(this.ApiEndpoint.auth + `/${user_id}`, payload);
-  }
-
-  static deleteMock(user_id: number) {
-    if (user_id === undefined) return undefined;
-    return apiClient.delete(this.ApiEndpoint.auth + `/${user_id}`);
+  static changePassword(payload: AuthServiceChangePasswordProps) {
+    return apiClient.post(this.ApiEndpoint.changePassword, payload);
   }
 }
-
-export const useGetAllAuth = () => {
-  const { data, status, isFetching } = useQuery({
-    key: ["useGetAllAuth"],
-    fetchAction: async () => AuthService.getAll(),
-    select: (data: any) => data.data.data,
-  });
-
-  return { data, status, isFetching };
-};
-
-export const useGetOneAuth = (user_id: number) => {
-  const { data, status, isFetching } = useQuery({
-    key: ["useGetOneAuth", user_id],
-    fetchAction: async () => AuthService.getOne(user_id),
-    select: (data: any) => data.data.data,
-  });
-
-  return { data, status, isFetching };
-};

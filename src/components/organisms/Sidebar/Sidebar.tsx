@@ -20,6 +20,7 @@ import {
   IconDashboard,
   IconFileAlert,
   IconFileFilled,
+  IconKeyOff,
   IconLogout2,
   IconPassword,
   IconPrinter,
@@ -29,16 +30,21 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { clsx } from "clsx";
+import ModalLogout from "@/components/atoms/Modals/ModalLogout/ModalLogout";
+import { useAuthContext } from "@/components/atoms/Auth/auth.context";
+import { capitalize } from "lodash";
 
 interface listRouterProps {
   title: string;
   endpoint?: string;
   icon?: any;
-  children?: Array<{
-    title: string;
-    endpoint: string;
-    icon?: any;
-  }>;
+  children?:
+    | Array<{
+        title: string;
+        endpoint: string;
+        icon?: any;
+      }>
+    | ((e?: any) => void);
 }
 
 const listRoutes: listRouterProps[] = [
@@ -55,7 +61,7 @@ const listRoutes: listRouterProps[] = [
   {
     title: "Dekripsi",
     endpoint: "/decrypt",
-    icon: <IconFileAlert size={18} />,
+    icon: <IconKeyOff size={18} />,
   },
   {
     title: "divider",
@@ -72,8 +78,9 @@ const listRoutes: listRouterProps[] = [
   },
   {
     title: "Logout",
-    endpoint: "/logout",
-    icon: <IconLogout2 size={18} />,
+    children: ({ key, onClick }: { key: any; onClick: () => void }) => (
+      <ModalLogout key={key} onClick={onClick} />
+    ),
   },
 ];
 
@@ -92,6 +99,7 @@ export const useSidebarContext = () => useContext(SidebarContext);
 
 const Sidebar = () => {
   const router = useRouter();
+  const { user, onLogout } = useAuthContext();
   const { height, width } = useViewportSize();
   const [searchInput, setSearchInput] = useState<string>("");
   const [routesExpand, setRoutesExpand] = useState<string[] | undefined>(
@@ -170,7 +178,7 @@ const Sidebar = () => {
         {expand && (
           <Box>
             <Text fz={14} lh={"xs"}>
-              Administrator
+              {capitalize(user?.username)}
             </Text>
             <Flex ml={4}>
               <Indicator size={8} position="middle-start" color="green" />
@@ -195,6 +203,12 @@ const Sidebar = () => {
                 item.title.toLowerCase().includes(searchInput.toLowerCase())
               )
               .map((routes, routesIndex) => {
+                if (typeof routes.children === "function") {
+                  return routes?.children({
+                    key: routesIndex,
+                    onClick: () => onLogout(),
+                  })!;
+                }
                 if (routes.endpoint && !routes.children)
                   return (
                     <UnstyledButton
@@ -225,8 +239,9 @@ const Sidebar = () => {
                     key={routesIndex}
                     value={routes.title}
                     bg={
-                      routes.children &&
-                      routes.children[0].endpoint.includes(
+                      !React.isValidElement(routes.children) &&
+                      Array.isArray(routes.children) &&
+                      routes?.children[0]?.endpoint?.includes(
                         router.pathname.split("/")[1]
                       ) &&
                       router.pathname !== "/"
@@ -260,18 +275,22 @@ const Sidebar = () => {
                           w={200}
                           bg={"#092635"}
                         >
-                          {routes.children?.map((child, childIndex) => (
-                            <Menu.Item
-                              className="!text-white !bg-[#092635] hover:!bg-[#1B4242]"
-                              key={childIndex}
-                            >
-                              {child.title}
-                            </Menu.Item>
-                          ))}
+                          {!React.isValidElement(routes.children) &&
+                            Array.isArray(routes.children) &&
+                            routes.children?.map((child, childIndex) => (
+                              <Menu.Item
+                                className="!text-white !bg-[#092635] hover:!bg-[#1B4242]"
+                                key={childIndex}
+                              >
+                                {child.title}
+                              </Menu.Item>
+                            ))}
                         </Menu.Dropdown>
                       </Accordion.Control>
                     </Menu>
                     {expand &&
+                      !React.isValidElement(routes.children) &&
+                      Array.isArray(routes.children) &&
                       routes.children?.map((child, childIndex) => (
                         <Accordion.Panel
                           key={childIndex}

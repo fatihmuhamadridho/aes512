@@ -20,7 +20,11 @@ const DefaultTemplate = ({ title, children }: DefaultTemplateProps) => {
       </Head>
       <Flex className="overflow-hidden" direction={"row"} h={"100%"}>
         <Sidebar />
-        <Box w={"100%"} ml={expand ? 230 : 60}>
+        <Box
+          className="transition-all duration-300"
+          w={"100%"}
+          ml={expand ? 230 : 60}
+        >
           <Navbar title={title} />
           <Container mt={50} p={16} fluid>
             {children}

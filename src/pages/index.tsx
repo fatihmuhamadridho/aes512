@@ -1,8 +1,9 @@
 import DefaultTemplate from "@/components/templates/Default/Default";
+import { useGetAllDashboard } from "@/services/dashboardService";
 import { Group, Paper, Stack, Text } from "@mantine/core";
 import {
-  IconBook,
-  IconBook2,
+  IconFileAlert,
+  IconKeyOff,
   IconUser,
   IconUsersGroup,
 } from "@tabler/icons-react";
@@ -20,18 +21,18 @@ const CardTotal = ({ title, total = 0, icon, miw, bg }: CardTotalProps) => (
   <Paper
     className="text-white"
     p={24}
-    miw={miw || 240}
+    miw={miw || 200}
     radius={16}
     bg={bg || "#FF3543"}
   >
     <Stack gap={12}>
       <Group align="center" justify="center">
-        {icon || <IconUsersGroup stroke={1.5} size={80} />}
-        <Text fz={48} fw={500}>
+        {icon || <IconUsersGroup stroke={1.5} size={60} />}
+        <Text fz={38} fw={500}>
           {total}
         </Text>
       </Group>
-      <Text fz={18} fw={500} ta={"center"}>
+      <Text fz={16} fw={500} ta={"center"}>
         {title}
       </Text>
     </Stack>
@@ -39,6 +40,8 @@ const CardTotal = ({ title, total = 0, icon, miw, bg }: CardTotalProps) => (
 );
 
 const HomePage = () => {
+  const { data: listDashboard } = useGetAllDashboard();
+
   return (
     <DefaultTemplate title="HomePage">
       <Stack>
@@ -58,21 +61,21 @@ const HomePage = () => {
         </Paper>
         <Group>
           <CardTotal
-            title="Jumlah Karyawan"
-            total={0}
-            icon={<IconUsersGroup stroke={1.5} size={80} />}
+            title="File Terenkripsi"
+            total={listDashboard?.encrypted_file}
+            icon={<IconFileAlert stroke={1.5} size={60} />}
             bg="#5C8374"
           />
           <CardTotal
-            title="Jumlah Kriteria"
-            total={0}
-            icon={<IconBook2 stroke={1.5} size={80} />}
+            title="File Terdekripsi"
+            total={listDashboard?.decrypted_file}
+            icon={<IconKeyOff stroke={1.5} size={60} />}
             bg="#5C8374"
           />
           <CardTotal
             title="Jumlah User"
-            total={0}
-            icon={<IconUser stroke={1.5} size={80} />}
+            total={listDashboard?.user}
+            icon={<IconUser stroke={1.5} size={60} />}
             bg="#5C8374"
           />
         </Group>
