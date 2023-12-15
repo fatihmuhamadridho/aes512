@@ -63,7 +63,13 @@ const EncryptPage = () => {
                   <FileInput
                     label={capitalize("file")}
                     maw={400}
-                    onChange={(e) => setFieldValue("file", e)}
+                    onChange={(e) =>
+                      e?.size! < Number(process.env.NEXT_PUBLIC_MAX_FILE_SIZE)
+                        ? setFieldValue("file", e)
+                        : alert(
+                            "Maksimal size file yang diterima adalah 100 MB"
+                          )
+                    }
                     value={values.file}
                   />
                   <PasswordInput
