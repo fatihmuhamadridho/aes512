@@ -29,6 +29,10 @@ const DecryptPage = () => {
   const { setInitializing } = useAuthContext();
   const { data: listFile } = useGetAllFile();
 
+  const renderFileSize = (values: any) => (
+    <Text>{bytesToSize(values?.file_size)}</Text>
+  );
+
   const renderEncryptDuration = (values: any) => (
     <Text>
       {values.durasi_proses_enkripsi
@@ -101,6 +105,11 @@ const DecryptPage = () => {
       width: 150,
     },
     {
+      label: "Ukuran File",
+      key: renderFileSize,
+      width: 125,
+    },
+    {
       label: "Durasi Enkripsi",
       key: renderEncryptDuration,
       width: 150,
@@ -126,6 +135,16 @@ const DecryptPage = () => {
       width: 300,
     },
   ];
+
+  function bytesToSize(bytes: number): string {
+    if (bytes === 0) return "0 Byte";
+    const k: number = 1024;
+    const sizes: string[] = ["Bytes", "KB", "MB", "GB", "TB"];
+
+    const i: number = Math.floor(Math.log(bytes) / Math.log(k));
+
+    return Math.round(100 * (bytes / Math.pow(k, i))) / 100 + " " + sizes[i];
+  }
 
   function convertMillisToTimeString(millis: number): string {
     // Hitung jam, menit, detik, dan milidetik
