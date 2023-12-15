@@ -24,6 +24,7 @@ import React, { useEffect } from "react";
 import { useQueryClient } from "react-query";
 import fileDownload from "js-file-download";
 import axios from "axios";
+import { dayjs } from "@/libs/dayjs";
 
 interface LabelValueProps {
   label: string;
@@ -138,7 +139,9 @@ const DecryptFile = () => {
                   />
                   <LabelValue
                     label={capitalize("Tanggal Enkripsi")}
-                    value={"BELOM ADA FIELD DATABASE NYA"}
+                    value={dayjs(detailFile?.createdAt).format(
+                      "DD-MM-YYYY HH:mm:ss"
+                    )}
                   />
                   <LabelValue
                     label={capitalize("Keterangan")}
