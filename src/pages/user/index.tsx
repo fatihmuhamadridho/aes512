@@ -18,15 +18,15 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { useQueryClient } from "react-query";
 
 const UserPage = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { expand } = useSidebarContext();
   const { setInitializing } = useAuthContext();
   const { data: listUser } = useGetAllUser();
+  const [searchInput, setSearchInput] = useState<string>("");
 
   const renderAksi = (values: any) => (
     <Flex gap={12}>
@@ -93,12 +93,26 @@ const UserPage = () => {
           <Divider />
           <Group gap={8}>
             <Text fz={12}>Search : </Text>
-            <TextInput w={"100%"} maw={300} placeholder="Search" />
+            <TextInput
+              w={"100%"}
+              maw={300}
+              placeholder="Search"
+              onChange={(e) => setSearchInput(e.target.value)}
+              value={searchInput}
+            />
           </Group>
           <DataTable
             mah={550}
             header={listHeader}
-            data={listUser?.concat(listUser)}
+            data={listUser?.filter(
+              (item: any) =>
+                String(item.fullname)
+                  .toLowerCase()
+                  .includes(searchInput.toLowerCase()) ||
+                String(item.username)
+                  .toLowerCase()
+                  .includes(searchInput.toLowerCase())
+            )}
           />
         </Stack>
       </Paper>

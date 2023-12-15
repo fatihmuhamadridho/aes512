@@ -19,7 +19,7 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { useQueryClient } from "react-query";
 
 const DecryptPage = () => {
@@ -28,6 +28,7 @@ const DecryptPage = () => {
   const { expand } = useSidebarContext();
   const { setInitializing } = useAuthContext();
   const { data: listFile } = useGetAllFile();
+  const [searchInput, setSearchInput] = useState<string>("");
 
   const renderFileSize = (values: any) => (
     <Text>{bytesToSize(values?.file_size)}</Text>
@@ -238,9 +239,30 @@ const DecryptPage = () => {
           <Divider />
           <Group gap={8}>
             <Text fz={12}>Search : </Text>
-            <TextInput w={"100%"} maw={300} placeholder="Search" />
+            <TextInput
+              w={"100%"}
+              maw={300}
+              placeholder="Search"
+              onChange={(e) => setSearchInput(e.target.value)}
+              value={searchInput}
+            />
           </Group>
-          <DataTable mah={550} header={listHeader} data={listFile} />
+          <DataTable
+            mah={550}
+            header={listHeader}
+            data={listFile?.filter(
+              (item: any) =>
+                String(item?.file_name_source)
+                  .toLowerCase()
+                  .includes(searchInput.toLowerCase()) ||
+                String(item?.file_name_source)
+                  .toLowerCase()
+                  .includes(searchInput.toLowerCase()) ||
+                String(item?.description)
+                  .toLowerCase()
+                  .includes(searchInput.toLowerCase())
+            )}
+          />
         </Stack>
       </Paper>
     </DefaultTemplate>
