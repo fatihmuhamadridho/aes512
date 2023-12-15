@@ -2,6 +2,7 @@ import { useAuthContext } from "@/components/atoms/Auth/auth.context";
 import DataTable, {
   tableHeadersProps,
 } from "@/components/atoms/DataTable/DataTable";
+import CustomModal from "@/components/atoms/Modals/CustomModal/CustomModal";
 import ModalDelete from "@/components/atoms/Modals/ModalDelete/ModalDelete";
 import { useSidebarContext } from "@/components/organisms/Sidebar/Sidebar";
 import DefaultTemplate from "@/components/templates/Default/Default";
@@ -71,12 +72,13 @@ const DecryptPage = () => {
         </Button>
       )}
       {values.status === "DECRYPTED" && (
-        <Button
-          color="orange"
+        <CustomModal
+          mainLabel="Reset Decrypt"
+          mainButtonColor="orange"
+          title="Reset Decrypt File"
+          description="Apakah Anda yakin ingin mereset decrypt file ini?"
           onClick={() => handleResetDecryptFile(values.file_id)}
-        >
-          Reset Decrypt
-        </Button>
+        />
       )}
       <ModalDelete onClick={() => handleDeleteData(values.file_id)} />
     </Flex>
