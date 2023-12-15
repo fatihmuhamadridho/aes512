@@ -6,9 +6,10 @@ import { useSidebarContext } from "../Sidebar/Sidebar";
 
 interface NavbarProps {
   title?: string;
+  onExpand?: (e?: any) => void;
 }
 
-const Navbar = ({ title }: NavbarProps) => {
+const Navbar = ({ title, onExpand }: NavbarProps) => {
   const [, { toggle }] = useDisclosure();
   const { expand, setExpand } = useSidebarContext();
 
@@ -22,7 +23,11 @@ const Navbar = ({ title }: NavbarProps) => {
       bg={"#5C8374"}
     >
       <Group h={"100%"} align="center">
-        <UnstyledButton h={"100%"} px={0} onClick={() => setExpand(!expand)}>
+        <UnstyledButton
+          h={"100%"}
+          px={0}
+          onClick={() => (onExpand ? onExpand() : setExpand(!expand))}
+        >
           <IconMenu2 />
         </UnstyledButton>
         <Text fz={24} fw={500}>

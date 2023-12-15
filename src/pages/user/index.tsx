@@ -42,14 +42,19 @@ const UserPage = () => {
       width: 30,
     },
     {
+      label: "Nama Lengkap",
+      key: "fullname",
+      width: 150,
+    },
+    {
       label: "Username",
       key: "username",
-      width: 250,
+      width: 150,
     },
     {
       label: "Aksi",
       key: renderAksi,
-      width: 250,
+      width: 200,
     },
   ];
 
@@ -91,14 +96,9 @@ const UserPage = () => {
             <TextInput w={"100%"} maw={300} placeholder="Search" />
           </Group>
           <DataTable
-            width={
-              expand
-                ? "calc(100vw - 230px - 32px - 32px)"
-                : "calc(100vw - 32px - 32px)"
-            }
-            mah={480}
+            mah={550}
             header={listHeader}
-            data={listUser}
+            data={listUser?.concat(listUser)}
           />
         </Stack>
       </Paper>

@@ -56,7 +56,7 @@ const HomePage = () => {
             Selamat Datang!
           </Text>
           <Text fz={16} fw={400}>
-            Ini adalah aplikasi untuk memanajemen database
+            Ini adalah aplikasi untuk tugas akhir implementasi AES 512
           </Text>
         </Paper>
         <Group>

@@ -203,7 +203,7 @@ const DecryptPage = () => {
             <Text fz={12}>Search : </Text>
             <TextInput w={"100%"} maw={300} placeholder="Search" />
           </Group>
-          <DataTable mah={480} header={listHeader} data={listFile} />
+          <DataTable mah={550} header={listHeader} data={listFile} />
         </Stack>
       </Paper>
     </DefaultTemplate>
