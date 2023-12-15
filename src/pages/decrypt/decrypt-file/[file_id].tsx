@@ -59,6 +59,16 @@ const DecryptFile = () => {
     isDecrypted();
   }, [detailFile, router]);
 
+  function bytesToSize(bytes: number): string {
+    if (bytes === 0) return "0 Byte";
+    const k: number = 1024;
+    const sizes: string[] = ["Bytes", "KB", "MB", "GB", "TB"];
+
+    const i: number = Math.floor(Math.log(bytes) / Math.log(k));
+
+    return Math.round(100 * (bytes / Math.pow(k, i))) / 100 + " " + sizes[i];
+  }
+
   const handleDecryptFile = async (password: string) => {
     try {
       setInitializing(true);
@@ -135,7 +145,7 @@ const DecryptFile = () => {
                   />
                   <LabelValue
                     label={capitalize("Ukuran File")}
-                    value={detailFile?.file_size + ` bytes`}
+                    value={bytesToSize(detailFile?.file_size)}
                   />
                   <LabelValue
                     label={capitalize("Tanggal Enkripsi")}

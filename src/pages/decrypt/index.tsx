@@ -32,7 +32,7 @@ const DecryptPage = () => {
   const renderEncryptDuration = (values: any) => (
     <Text>
       {values.durasi_proses_enkripsi
-        ? Math.floor(values.durasi_proses_enkripsi) + ` Detik`
+        ? convertMillisToTimeString(Math.floor(values.durasi_proses_enkripsi))
         : "null"}
     </Text>
   );
@@ -40,7 +40,7 @@ const DecryptPage = () => {
   const renderDecryptDuration = (values: any) => (
     <Text>
       {values.durasi_proses_dekripsi
-        ? Math.floor(values.durasi_proses_dekripsi) + ` Detik`
+        ? convertMillisToTimeString(Math.floor(values.durasi_proses_dekripsi))
         : "null"}
     </Text>
   );
@@ -103,12 +103,12 @@ const DecryptPage = () => {
     {
       label: "Durasi Enkripsi",
       key: renderEncryptDuration,
-      width: 130,
+      width: 150,
     },
     {
       label: "Durasi Dekripsi",
       key: renderDecryptDuration,
-      width: 130,
+      width: 150,
     },
     {
       label: "Status File",
@@ -126,6 +126,24 @@ const DecryptPage = () => {
       width: 300,
     },
   ];
+
+  function convertMillisToTimeString(millis: number): string {
+    // Hitung jam, menit, detik, dan milidetik
+    const totalSeconds = Math.floor(millis / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    const milliseconds = millis % 1000;
+
+    // Format hasil ke dalam string dengan tambahan nol pada digit yang lebih kecil
+    const resultString = `${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}:${milliseconds
+      .toString()
+      .padStart(3, "0")}`;
+
+    return resultString;
+  }
 
   const handleTambahFile = () => {
     router.push("/encrypt");

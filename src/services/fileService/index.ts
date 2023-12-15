@@ -58,7 +58,7 @@ export class FileService {
   static async downloadFlie(destination: string, filename: string) {
     return apiClient
       .get(destination, {
-        responseType: "blob",
+        responseType: "arraybuffer",
       })
       .then((response) => {
         if (response.status === 200) {
