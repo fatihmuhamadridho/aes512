@@ -43,7 +43,7 @@ const HomePage = () => {
   const { data: listDashboard } = useGetAllDashboard();
 
   return (
-    <DefaultTemplate title="HomePage">
+    <DefaultTemplate title="Dashboard">
       <Stack>
         <Paper
           className="!text-white"

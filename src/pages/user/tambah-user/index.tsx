@@ -46,7 +46,7 @@ const TambahUserPage = () => {
   };
 
   return (
-    <DefaultTemplate title="TambahUserPage">
+    <DefaultTemplate title="Tambah User">
       <Paper p={16}>
         <Text fz={20} fw={500}>
           Form Tambah User

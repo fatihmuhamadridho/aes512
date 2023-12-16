@@ -43,7 +43,7 @@ const ChangePasswordPage = () => {
   };
 
   return (
-    <DefaultTemplate title="ChangePasswordPage">
+    <DefaultTemplate title="Ganti Password">
       <Paper p={16}>
         <Formik
           initialValues={{

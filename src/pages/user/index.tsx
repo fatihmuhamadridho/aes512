@@ -82,7 +82,7 @@ const UserPage = () => {
   };
 
   return (
-    <DefaultTemplate title="UserPage">
+    <DefaultTemplate title="User">
       <Paper p={16}>
         <Stack>
           <Box>

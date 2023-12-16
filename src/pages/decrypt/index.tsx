@@ -228,7 +228,7 @@ const DecryptPage = () => {
   };
 
   return (
-    <DefaultTemplate title="DecryptPage">
+    <DefaultTemplate title="Dekripsi">
       <Paper p={16}>
         <Stack>
           <Box>

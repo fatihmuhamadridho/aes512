@@ -44,7 +44,7 @@ const EncryptPage = () => {
   };
 
   return (
-    <DefaultTemplate title="EncryptPage">
+    <DefaultTemplate title="Enkripsi File">
       <Paper p={16}>
         <Text fz={20} fw={500}>
           Form Enkripsi

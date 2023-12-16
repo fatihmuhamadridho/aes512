@@ -44,7 +44,7 @@ const LoginPage = () => {
   return (
     <>
       <Head>
-        <title>LoginPage</title>
+        <title>Login</title>
       </Head>
       <Paper className="!text-white" h={"100vh"} bg={"#092635"}>
         <Center h={"90vh"}>

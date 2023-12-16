@@ -106,7 +106,9 @@ const DecryptFile = () => {
   };
 
   return (
-    <DefaultTemplate title="DecryptFile">
+    <DefaultTemplate
+      title={`Dekripsi File - ${detailFile?.file_name_encrypted}`}
+    >
       <Paper p={16}>
         <Text fz={20} fw={500}>
           Form Dekripsi File - {detailFile?.file_name_encrypted}
