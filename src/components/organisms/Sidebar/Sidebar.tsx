@@ -161,11 +161,13 @@ const Sidebar = () => {
         <Text
           className={clsx(
             "transition-all !duration-300",
-            expand ? "!text-[24px]" : "!text-[10px]"
+            expand ? "!text-[12px]" : "!text-[6px]"
           )}
+          ta={"center"}
           fw={700}
         >
-          PT BNG
+          <div>PT SKEMANUSA</div>
+          <div>CONSULTAMA TEKNIK</div>
         </Text>
       </UnstyledButton>
       <Group px={12} h={65}>
