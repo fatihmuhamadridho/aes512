@@ -1,5 +1,4 @@
 import { Container, Group, Text, UnstyledButton } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import { IconMenu2 } from "@tabler/icons-react";
 import React from "react";
 import { useSidebarContext } from "../Sidebar/Sidebar";
@@ -10,7 +9,6 @@ interface NavbarProps {
 }
 
 const Navbar = ({ title, onExpand }: NavbarProps) => {
-  const [, { toggle }] = useDisclosure();
   const { expand, setExpand } = useSidebarContext();
 
   return (

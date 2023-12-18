@@ -10,20 +10,15 @@ import {
   Menu,
   ScrollArea,
   Text,
-  Transition,
   UnstyledButton,
 } from "@mantine/core";
 import { useViewportSize } from "@mantine/hooks";
 import {
-  IconChartHistogram,
   IconChevronDown,
   IconDashboard,
   IconFileAlert,
-  IconFileFilled,
   IconKeyOff,
-  IconLogout2,
   IconPassword,
-  IconPrinter,
   IconUsersGroup,
 } from "@tabler/icons-react";
 import Link from "next/link";
@@ -283,6 +278,7 @@ const Sidebar = () => {
                               <Menu.Item
                                 className="!text-white !bg-[#092635] hover:!bg-[#1B4242]"
                                 key={childIndex}
+                                onClick={() => router.push(child.endpoint)}
                               >
                                 {child.title}
                               </Menu.Item>

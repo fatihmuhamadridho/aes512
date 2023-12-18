@@ -8,7 +8,7 @@ import {
   Text,
   TextInput,
 } from "@mantine/core";
-import React, { useState } from "react";
+import React from "react";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import { AuthService, AuthServiceLoginProps } from "@/services/authService";
@@ -18,7 +18,6 @@ import { useAuthContext } from "@/components/atoms/Auth/auth.context";
 const LoginPage = () => {
   const router = useRouter();
   const { setInitializing } = useAuthContext();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleLogin = async (payload: AuthServiceLoginProps) => {
     try {
