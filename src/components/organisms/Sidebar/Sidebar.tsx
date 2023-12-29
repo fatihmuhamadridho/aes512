@@ -161,8 +161,8 @@ const Sidebar = () => {
           ta={"center"}
           fw={700}
         >
-          <div>PT SKEMANUSA</div>
-          <div>CONSULTAMA TEKNIK</div>
+          <span>PT SKEMANUSA</span>
+          <span>CONSULTAMA TEKNIK</span>
         </Text>
       </UnstyledButton>
       <Group px={12} h={65}>
@@ -248,11 +248,11 @@ const Sidebar = () => {
                   >
                     <Menu
                       classNames={{
-                        dropdown: "!px-2 !py-3 !border-0 -translate-y-[19px]",
+                        dropdown: "!p-0 !border-0 -translate-y-[14px]",
                       }}
                       trigger="hover"
                       position="right-start"
-                      offset={20}
+                      offset={16}
                       transitionProps={{ duration: 50 }}
                       disabled={expand}
                     >
@@ -276,7 +276,7 @@ const Sidebar = () => {
                             Array.isArray(routes.children) &&
                             routes.children?.map((child, childIndex) => (
                               <Menu.Item
-                                className="!text-white !bg-[#092635] hover:!bg-[#1B4242]"
+                                className="!text-white !bg-[#092635] hover:!bg-[#1B4242] !py-3 !px-4"
                                 key={childIndex}
                                 onClick={() => router.push(child.endpoint)}
                               >

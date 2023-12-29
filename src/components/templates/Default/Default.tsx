@@ -17,8 +17,6 @@ const DefaultTemplate = ({ title, children }: DefaultTemplateProps) => {
   const [expandMobile, setExpandMobile] = useState<boolean>(false);
   const matches = useMediaQuery("(min-width: 600px)");
 
-  console.log({ matches });
-
   if (matches === undefined) {
     return (
       <Center h={"100vh"}>
