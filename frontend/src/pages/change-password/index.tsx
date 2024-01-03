@@ -48,7 +48,7 @@ const ChangePasswordPage = () => {
         <Formik
           initialValues={{
             username: user?.username,
-            password: user?.first_login ? user?.password : "",
+            password: user?.password,
             new_password: "",
           }}
           onSubmit={(values: AuthServiceChangePasswordProps) =>

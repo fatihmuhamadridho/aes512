@@ -23,13 +23,6 @@ export const AuthProvider = ({ children }: { children: any }) => {
           if (response.status === 200) {
             setUser(response.data.data);
             if (router.pathname === "/login") await router.push("/");
-            if (
-              response.data.data.first_login &&
-              router.pathname !== "/change-password"
-            ) {
-              alert("Anda perlu mengganti password terlebih dahulu!");
-              await router.push("/change-password");
-            }
           } else {
             if (router.pathname !== "/login") await router.push("/login");
           }

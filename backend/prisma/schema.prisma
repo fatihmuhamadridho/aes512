@@ -12,12 +12,11 @@ datasource db {
 }
 
 model User {
-  user_id      Int      @id @default(autoincrement())
+  user_id      Int     @id @default(autoincrement())
   fullname     String?
-  username     String   @unique
-  password     String   @default("admin")
-  access_token String   @default("")
-  first_login  Boolean? @default(true)
+  username     String  @unique
+  password     String  @default("admin")
+  access_token String  @default("")
   File         File[]
 }
 
