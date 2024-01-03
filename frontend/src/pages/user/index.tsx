@@ -71,7 +71,7 @@ const UserPage = () => {
       setInitializing(true);
       const response = await UserService.deleteUser(user_id);
       if (response?.status === 200) {
-        alert("Berhasil handleDeleteData!");
+        alert("Berhasil delete data!");
         await queryClient.invalidateQueries(["useGetAllUser"]);
         setInitializing(false);
       }
