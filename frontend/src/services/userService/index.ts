@@ -2,12 +2,13 @@ import useQuery from "@/libs/useQuery";
 import { instance } from "@/libs/api/client";
 
 const apiClient = instance({
-  baseURL: process.env.NEXT_PUBLIC_BASE_API_URL + "/aes512",
+  baseURL: process.env.NEXT_PUBLIC_BASE_API_URL,
 });
 
 export interface UserServicePostUserProps {
   fullname: string;
   username: string;
+  password: string;
 }
 
 export class UserService {

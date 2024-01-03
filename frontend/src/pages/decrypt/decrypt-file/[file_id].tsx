@@ -74,16 +74,20 @@ const DecryptFile = () => {
       setInitializing(true);
       const response = await FileService.decryptFile({ file_id, password });
       if (response?.status === 200) {
-        alert("Berhasil handleDecryptFile!");
+        alert(
+          `File berhasil didekripsi dan diupload, waktu dekripsi: ${Number(
+            response.data.data.durasi_proses_dekripsi / 1000
+          ).toFixed(2)} detik`
+        );
         await queryClient.invalidateQueries(["useGetAllFile"]);
         setInitializing(false);
         await router.push("/decrypt", undefined, { shallow: true });
       } else {
-        alert("Gagal handleDecryptFile!");
+        alert("Maaf, Password tidak sesuai!");
         setInitializing(false);
       }
     } catch (error: any) {
-      alert("Gagal handleDecryptFile!");
+      alert("Maaf, Password tidak sesuai!");
       setInitializing(false);
     }
   };
@@ -170,6 +174,7 @@ const DecryptFile = () => {
                           setFieldValue("password", e.target.value)
                         }
                         value={values.password}
+                        required
                       />
                     }
                   />

@@ -11,6 +11,7 @@ import {
   Divider,
   Group,
   Paper,
+  PasswordInput,
   Stack,
   Text,
   TextInput,
@@ -31,16 +32,16 @@ const TambahUserPage = () => {
       setInitializing(true);
       const response = await UserService.postUser(payload);
       if (response.status === 200) {
-        alert("Berhasil handleTambahData!");
+        alert("Berhasil Tambah Data!");
         await queryClient.invalidateQueries(["useGetAllUser"]);
         setInitializing(false);
         await router.push("/user");
       } else {
-        alert("Gagal handleTambahData!");
+        alert("Gagal Tambah Data!");
         setInitializing(false);
       }
     } catch (error: any) {
-      alert("Gagal handleTambahData!");
+      alert("Gagal Tambah Data!");
       setInitializing(false);
     }
   };
@@ -54,7 +55,7 @@ const TambahUserPage = () => {
         <Divider mt={2} mb={8} />
         <Formik
           enableReinitialize
-          initialValues={{ fullname: "", username: "" }}
+          initialValues={{ fullname: "", username: "", password: "" }}
           onSubmit={(values: UserServicePostUserProps) =>
             handleTambahData(values)
           }
@@ -74,6 +75,12 @@ const TambahUserPage = () => {
                     maw={400}
                     onChange={(e) => setFieldValue("username", e.target.value)}
                     value={values.username}
+                  />
+                  <PasswordInput
+                    label={capitalize("password")}
+                    maw={400}
+                    onChange={(e) => setFieldValue("password", e.target.value)}
+                    value={values.password}
                   />
                 </Stack>
                 <Divider />

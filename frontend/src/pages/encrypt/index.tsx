@@ -29,16 +29,20 @@ const EncryptPage = () => {
       setInitializing(true);
       const response = await FileService.postFile(payload);
       if (response.status === 200) {
-        alert("Berhasil handleTambahData!");
+        alert(
+          `File berhasil dienkripsi dan diupload, waktu upload: ${Number(
+            response.data.data.durasi_proses_enkripsi / 1000
+          ).toFixed(2)} detik`
+        );
         await queryClient.invalidateQueries(["useGetAllFile"]);
         setInitializing(false);
         await router.push("/decrypt");
       } else {
-        alert("Gagal handleTambahData!");
+        alert("Gagal Enkripsi File!");
         setInitializing(false);
       }
     } catch (error: any) {
-      alert("Gagal handleTambahData!");
+      alert("Gagal Enkripsi File!");
       setInitializing(false);
     }
   };
@@ -61,22 +65,28 @@ const EncryptPage = () => {
               <Stack>
                 <Stack gap={4}>
                   <FileInput
+                    accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.xls,.xlsx,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.ppt,.pptx,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.txt,text/plain,.jpg,.jpeg,image/jpeg,.png,image/png,.svg,image/svg+xml,.pdf,application/pdf"
                     label={capitalize("file")}
                     maw={400}
                     onChange={(e) =>
                       e?.size! < Number(process.env.NEXT_PUBLIC_MAX_FILE_SIZE)
                         ? setFieldValue("file", e)
                         : alert(
-                            "Maksimal size file yang diterima adalah 100 MB"
+                            `Maaf, file tidak bisa lebih besar dari ${
+                              Number(process.env.NEXT_PUBLIC_MAX_FILE_SIZE) /
+                              1000000
+                            } MB`
                           )
                     }
                     value={values.file}
+                    required
                   />
                   <PasswordInput
                     label={capitalize("password")}
                     maw={400}
                     onChange={(e) => setFieldValue("password", e.target.value)}
                     value={values.password}
+                    required
                   />
                   <Textarea
                     label={capitalize("deskripsi")}
@@ -87,6 +97,7 @@ const EncryptPage = () => {
                       setFieldValue("description", e.target.value)
                     }
                     value={values.description}
+                    required
                   />
                 </Stack>
                 <Divider />

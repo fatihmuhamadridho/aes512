@@ -18,50 +18,28 @@ model User {
   password     String   @default("admin")
   access_token String   @default("")
   first_login  Boolean? @default(true)
+  File         File[]
 }
 
-model Nilai {
-  nilai_id        Int               @id @default(autoincrement())
-  jum_nilai       Float             @unique
-  ket_nilai       String            @db.Text
-  AnalisaKriteria AnalisaKriteria[]
+model File {
+  file_id                Int      @id @default(autoincrement())
+  file_name_source       String
+  file_decrypted_url     String?
+  file_name_encrypted    String
+  file_encrypted_url     String
+  file_size              Float
+  password               String   @default("admin")
+  status                 status   @default(ENCRYPTED)
+  description            String?
+  durasi_proses_enkripsi Float?
+  durasi_proses_dekripsi Float?
+  User                   User?    @relation(fields: [userUser_id], references: [user_id], onUpdate: Cascade, onDelete: Cascade)
+  userUser_id            Int
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @default(now()) @updatedAt
 }
 
-model Kriteria {
-  kd_kriteria     String            @id @unique @db.VarChar(5)
-  nm_kriteria     String            @db.VarChar(50)
-  bobot_kriteria  Float?            @default(0)
-  AnalisaKriteria AnalisaKriteria[]
-  NilaiAkhir      NilaiAkhir[]
-}
-
-model Alternatif {
-  id_karyawan String       @id @unique @db.VarChar(10)
-  nama        String       @db.VarChar(50)
-  gender      Gender
-  NilaiAkhir  NilaiAkhir[]
-}
-
-model AnalisaKriteria {
-  analisa_kriteria_id    Int      @id @default(autoincrement())
-  Kriteria               Kriteria @relation(fields: [kd_kriteria], references: [kd_kriteria], onUpdate: Cascade, onDelete: Cascade)
-  kd_kriteria            String   @db.VarChar(5)
-  kd_kriteria_pembanding String   @db.VarChar(5)
-  Nilai                  Nilai    @relation(fields: [nilai_id], references: [nilai_id], onUpdate: Cascade, onDelete: Cascade)
-  nilai_id               Int
-}
-
-model NilaiAkhir {
-  nilai_akhir_id      Int        @id @default(autoincrement())
-  Alternatif          Alternatif @relation(fields: [id_karyawan], references: [id_karyawan], onUpdate: Cascade, onDelete: Cascade)
-  id_karyawan         String     @db.VarChar(10)
-  Kriteria            Kriteria   @relation(fields: [kd_kriteria], references: [kd_kriteria], onUpdate: Cascade, onDelete: Cascade)
-  kd_kriteria         String     @db.VarChar(5)
-  skor_alt_kriteria   Float
-  jumlah_alt_kriteria Float
-}
-
-enum Gender {
-  PRIA
-  WANITA
+enum status {
+  ENCRYPTED
+  DECRYPTED
 }

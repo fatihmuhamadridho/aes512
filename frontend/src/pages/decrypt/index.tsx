@@ -190,8 +190,8 @@ const DecryptPage = () => {
         setInitializing(false);
       }
     } catch (error) {
-      console.error("Error in handleDownloadDecryptFile:", error);
-      alert("Gagal handleDownloadDecryptFile!");
+      console.error("Error in download file:", error);
+      alert("Gagal download file!");
       setInitializing(false);
     }
   };
@@ -201,13 +201,13 @@ const DecryptPage = () => {
       setInitializing(true);
       const response = await FileService.resetDecryptFile(file_id);
       if (response?.status === 200) {
-        alert("Berhasil handleResetDecryptFile!");
+        alert("Berhasil reset dekripsi file!");
         await queryClient.invalidateQueries(["useGetAllFile"]);
         setInitializing(false);
       }
     } catch (error: any) {
-      console.error("Error in handleResetDecryptFile:", error);
-      alert("Gagal handleResetDecryptFile!");
+      console.error("Error in reset dekripsi file:", error);
+      alert("Gagal reset dekripsi file!");
       setInitializing(false);
     }
   };
@@ -217,7 +217,7 @@ const DecryptPage = () => {
       setInitializing(true);
       const response = await FileService.deleteFile(file_id);
       if (response?.status === 200) {
-        alert("Berhasil handleDeleteData!");
+        alert("Berhasil delete data!");
         await queryClient.invalidateQueries(["useGetAllFile"]);
         setInitializing(false);
       }

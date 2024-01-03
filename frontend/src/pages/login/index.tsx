@@ -31,11 +31,11 @@ const LoginPage = () => {
           router.push("/");
         }, 500);
       } else {
-        alert("Gagal melakukan login!");
+        alert("Username atau password salah!");
         setInitializing(false);
       }
     } catch (error: any) {
-      alert("Gagal melakukan login!");
+      alert("Username atau password salah!");
       setInitializing(false);
     }
   };
@@ -62,12 +62,14 @@ const LoginPage = () => {
                     placeholder="Username"
                     onChange={(e) => setFieldValue("username", e.target.value)}
                     value={values.username}
+                    required
                   />
                   <PasswordInput
                     placeholder="Password"
                     autoComplete="password"
                     onChange={(e) => setFieldValue("password", e.target.value)}
                     value={values.password}
+                    required
                   />
                   <Space h={12} />
                   <Button type="submit" variant="filled" color="teal">

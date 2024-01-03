@@ -11,6 +11,7 @@ import {
   Divider,
   Group,
   Paper,
+  PasswordInput,
   Stack,
   Text,
   TextInput,
@@ -33,16 +34,16 @@ const EditUserPage = () => {
       setInitializing(true);
       const response = await UserService.putUser(payload, user_id);
       if (response?.status === 200) {
-        alert("Berhasil handleEditData!");
+        alert("Berhasil Edit Data!");
         await queryClient.invalidateQueries(["useGetAllUser"]);
         setInitializing(false);
         await router.push("/user");
       } else {
-        alert("Gagal handleEditData!");
+        alert("Gagal Edit Data!");
         setInitializing(false);
       }
     } catch (error: any) {
-      alert("Gagal handleEditData!");
+      alert("Gagal Edit Data!");
       setInitializing(false);
     }
   };
@@ -59,6 +60,7 @@ const EditUserPage = () => {
           initialValues={{
             fullname: detailUser?.fullname || "",
             username: detailUser?.username || "",
+            password: detailUser?.password || "",
           }}
           onSubmit={(values: UserServicePostUserProps) =>
             handleEditData(values)
@@ -79,6 +81,13 @@ const EditUserPage = () => {
                     maw={400}
                     onChange={(e) => setFieldValue("username", e.target.value)}
                     value={values.username}
+                    disabled
+                  />
+                  <PasswordInput
+                    label={capitalize("password")}
+                    maw={400}
+                    onChange={(e) => setFieldValue("password", e.target.value)}
+                    value={values.password}
                   />
                 </Stack>
                 <Divider />
