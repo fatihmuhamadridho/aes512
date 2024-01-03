@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { PaginationController } from '../pagination.controller';
-import { ResponseController } from '../response.controller';
-import { PrismaClient } from '@internal/aes512/client';
-import type { Prisma } from '@internal/aes512/client';
+import { PaginationController } from './pagination.controller';
+import { ResponseController } from './response.controller';
+import { PrismaClient } from '@prisma/client';
+import type { Prisma } from '@prisma/client';
 
 const prisma = new PrismaClient();
 

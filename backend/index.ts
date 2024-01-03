@@ -8,7 +8,7 @@ const corsOptions = {
   origin: '*',
   optionsSuccessStatus: 200
 };
-const PORT = process.env.PORT || 4002;
+const PORT = process.env.PORT || 4003;
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());

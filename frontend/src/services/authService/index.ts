@@ -2,7 +2,7 @@ import useQuery from "@/libs/useQuery";
 import { instance } from "@/libs/api/client";
 
 const apiClient = instance({
-  baseURL: process.env.NEXT_PUBLIC_BASE_API_URL + "/aes512/auth",
+  baseURL: process.env.NEXT_PUBLIC_BASE_API_URL + "/auth",
 });
 
 export interface AuthServiceLoginProps {
