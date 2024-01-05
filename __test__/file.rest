@@ -1,0 +1,33 @@
+###
+GET http://localhost:4003/api/v1/file?
+
+###
+GET http://localhost:4003/api/v1/file/1
+
+###
+POST http://localhost:4003/api/v1/file
+Content-Type: application/json
+
+{
+    "fullname": "string",
+    "username": "string",
+    "password": "string",
+    "access_token": "string",
+    "first_login": true
+}
+
+###
+PUT http://localhost:4003/api/v1/file/1
+Content-Type: application/json
+
+{
+    "fullname": "superadmin",
+    "gender": "superadmin",
+    "birth_place": "superadmin",
+    "handphone": "superadmin",
+    "address": "superadmin",
+    "position": "superadmin"
+}
+
+###
+DELETE  http://localhost:4003/api/v1/file/1
