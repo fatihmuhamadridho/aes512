@@ -15,7 +15,7 @@ pipeline {
         stage("Deploy") {
             steps {
                 dir("backend") {
-                    sh "pm2 restart aes512 --cron-restart='0 3 * * *'"
+                    sh "pm2 restart aes512 --cron-restart='5 3 * * *'"
                 }
             }
         }
