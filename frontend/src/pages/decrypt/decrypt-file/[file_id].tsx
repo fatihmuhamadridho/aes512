@@ -143,7 +143,8 @@ const DecryptFile = () => {
                           href={
                             detailFile?.file_encrypted_url +
                             "/" +
-                            detailFile?.file_name_encrypted
+                            detailFile?.file_name_encrypted +
+                            "?download=true"
                           }
                           // onClick={handleDownloadEncryptFile}
                         >
