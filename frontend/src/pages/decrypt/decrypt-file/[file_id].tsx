@@ -138,7 +138,15 @@ const DecryptFile = () => {
                     value={
                       <Group>
                         <Text>{detailFile?.file_name_encrypted}</Text>
-                        <UnstyledButton onClick={handleDownloadEncryptFile}>
+                        <UnstyledButton
+                          component="a"
+                          href={
+                            detailFile?.file_encrypted_url +
+                            "/" +
+                            detailFile?.file_name_encrypted
+                          }
+                          // onClick={handleDownloadEncryptFile}
+                        >
                           <Flex gap={4} align={"center"}>
                             <IconDownload color="green" />
                             <Text fz={14} c={"green"}>

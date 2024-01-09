@@ -66,12 +66,15 @@ const DecryptPage = () => {
       {values.status === "DECRYPTED" && (
         <Button
           color="green"
-          onClick={() =>
-            handleDownloadDecryptFile({
-              file_decrypted_url: values?.file_decrypted_url,
-              file_name_source: values?.file_name_source,
-            })
-          }
+          component="a"
+          href={values?.file_decrypted_url + "/" + values?.file_name_source}
+          target="_blank"
+          // onClick={() =>
+          //   handleDownloadDecryptFile({
+          //     file_decrypted_url: values?.file_decrypted_url,
+          //     file_name_source: values?.file_name_source,
+          //   })
+          // }
         >
           Download
         </Button>
