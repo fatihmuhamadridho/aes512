@@ -146,6 +146,7 @@ const DecryptFile = () => {
                             detailFile?.file_name_encrypted +
                             "?download=true"
                           }
+                          target="_blank"
                           // onClick={handleDownloadEncryptFile}
                         >
                           <Flex gap={4} align={"center"}>

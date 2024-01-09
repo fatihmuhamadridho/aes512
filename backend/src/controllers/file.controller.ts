@@ -18,7 +18,7 @@ interface queryProps {
 }
 
 export class Aes512_FileController {
-  static BASE_FILE_URL = 'https://www.cdn.komikkira.cloud';
+  static BASE_FILE_URL = 'http://localhost';
   static file_encrypted_url = '/aes512/encrypted';
   static file_decrypted_url = '/aes512/decrypted';
 
